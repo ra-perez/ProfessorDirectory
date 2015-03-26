@@ -3,7 +3,7 @@ package database;
 public class Professor {
 	private String name, title, department, phone, email, loc1, loc2;
 	
-	Professor(String name, String title, String department, String phone, String email, String loc1, String loc2) {
+	public Professor(String name, String title, String department, String phone, String email, String loc1, String loc2) {
 		this.name = name;
 		this.title = title;
 		this.department = department;
@@ -13,7 +13,7 @@ public class Professor {
 		this.loc2 = loc2;
 	}
 	
-	Professor() {
+	public Professor() {
 		
 	}
 	
