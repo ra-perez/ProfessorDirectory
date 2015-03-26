@@ -49,8 +49,7 @@ public class Parser {
 				
 				next = s.nextLine(); // go to <loc2>
 				professor.setPhone(getLoc2(next));
-				
-				
+					
 			}
 		}
 		
@@ -62,42 +61,42 @@ public class Parser {
 		return s;
 	}
 	
-	private String getTitle(String s){	// remove <name> and </name>
+	private String getTitle(String s){	// remove <title> and </title>
 		String[] temp = s.split("<title>");
 		temp = temp[1].toString().split("</title>");
 		s = temp[0].toString();
 		return s;
 	}
 	
-	private String getDepartment(String s){	// remove <name> and </name>
+	private String getDepartment(String s){	// remove <department> and </department>
 		String[] temp = s.split("<department>");
 		temp = temp[1].toString().split("</department>");
 		s = temp[0].toString();
 		return s;
 	}
 	
-	private String getPhone(String s){	// remove <name> and </name>
+	private String getPhone(String s){	// remove <phone> and </phone>
 		String[] temp = s.split("<phone>");
 		temp = temp[1].toString().split("</phone>");
 		s = temp[0].toString();
 		return s;
 	}
 	
-	private String getEmail(String s){	// remove <name> and </name>
+	private String getEmail(String s){	// remove <email> and </email>
 		String[] temp = s.split("<email>");
 		temp = temp[1].toString().split("</email>");
 		s = temp[0].toString();
 		return s;
 	}
 	
-	private String getLoc1(String s){	// remove <name> and </name>
+	private String getLoc1(String s){	// remove <location_line1> and </location_line1>
 		String[] temp = s.split("<location_line1>");
 		temp = temp[1].toString().split("</location_line1>");
 		s = temp[0].toString();
 		return s;
 	}
 	
-	private String getLoc2(String s){	// remove <name> and </name>
+	private String getLoc2(String s){	// remove <location_line2> and </location_line2>
 		String[] temp = s.split("<location_line2>");
 		temp = temp[1].toString().split("</location_line2>");
 		s = temp[0].toString();
