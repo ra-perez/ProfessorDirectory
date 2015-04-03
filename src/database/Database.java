@@ -1,5 +1,11 @@
 package database;
 
-public class Database {
+import java.util.ArrayList;
 
+public class Database {
+	private ArrayList<Professor> professors;
+	
+	public Database(ArrayList<Professor> p) {
+		professors = p;
+	}
 }
