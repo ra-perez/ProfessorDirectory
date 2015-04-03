@@ -15,7 +15,7 @@ public class Database {
 	
 	private void initializeDatabase() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
-        Connection con = DriverManager.getConnection("jdbc:sqlite:testdb");
+        Connection con = DriverManager.getConnection("jdbc:sqlite:professors");
         Statement stat = con.createStatement();
 
 		for (Professor p: professors) {
