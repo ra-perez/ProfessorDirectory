@@ -8,4 +8,8 @@ public class Database {
 	public Database(ArrayList<Professor> p) {
 		professors = p;
 	}
+	
+	private void initializeDatabase() {
+		
+	}
 }
