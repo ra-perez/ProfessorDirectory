@@ -8,7 +8,6 @@ import javafx.scene.layout.BorderPane;
 
 public class Main extends Application {
 	@Override
-	//asdasdasd
 	public void start(Stage primaryStage) {
 		try {
 			BorderPane root = new BorderPane();
