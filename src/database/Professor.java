@@ -13,7 +13,6 @@ public class Professor {
 		this.loc2 = loc2;
 	}
 	
-	//TODO: add constructor info
 	public Professor() {
 		
 	}
