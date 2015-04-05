@@ -70,10 +70,8 @@ public class Controller {
 	
 	private void populateBuilding() {
 		ObservableList<String> observableBuildingList = FXCollections.observableArrayList();
-		int i = 0;
 		for (String name: buildingList1) {
-			observableBuildingList.add(name + "------" + buildingList2.get(i));
-			i++;
+			observableBuildingList.add(name);
 		}
 		building.setItems(observableBuildingList);
 	}
