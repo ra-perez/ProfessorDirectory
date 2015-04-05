@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -102,11 +103,14 @@ public class Controller {
 	}
 	
 	private void switchScreen(String FXMLFile) throws IOException {
-		Parent home_page_parent = FXMLLoader.load(getClass().getResource(FXMLFile));
-		Scene home_page_scene = new Scene(home_page_parent);
-		Stage app_stage = (Stage) getInfo.getScene().getWindow();
-		app_stage.setScene(home_page_scene);
-		app_stage.show();
+		Stage stage;
+		Parent root;
+		stage = new Stage();
+		root = FXMLLoader.load(getClass().getResource(FXMLFile));
+		stage.setScene(new Scene(root));
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.initOwner(getInfo.getScene().getWindow());
+		stage.showAndWait();
 	}
 
 }
