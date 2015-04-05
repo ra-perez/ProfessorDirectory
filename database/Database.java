@@ -57,6 +57,10 @@ public class Database {
         return makeQuery("SELECT " + column + " FROM Professors GROUP BY " + column);
 	}
 	
+	//private ArrayList<String> getColInfo2(String column) throws ClassNotFoundException, SQLException {
+      //  return makeQuery("SELECT " + column + " FROM Professors WHERE Name = 'Susan Ablondi'");
+	//}
+	
 	public ArrayList<String> getBuildings1() throws ClassNotFoundException, SQLException {return getColInfo("Loc1");}
 	public ArrayList<String> getBuildings2() throws ClassNotFoundException, SQLException {return getColInfo("Loc2");}
 	public ArrayList<String> getDepartments() throws ClassNotFoundException, SQLException {return getColInfo("Department");}
