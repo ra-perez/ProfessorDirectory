@@ -8,9 +8,7 @@ import java.util.Scanner;
 
 
 public class Parser {
-	//Go through information in TXT file
-	//Create an ArrayList of type Professor
-	//Create a new Professor object for every <item> - </item> chunk of text
+	
 	private String fileName;
 	private String line = "";
 	private String next = "";
@@ -73,8 +71,8 @@ public class Parser {
 		
 		return s;
 	}
-	
 
+	
 	public ArrayList<Professor> getProfessors() {return professorList;}
 	
 }
