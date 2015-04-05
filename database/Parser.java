@@ -84,8 +84,14 @@ public class Parser {
 				next = s.nextLine();
 				loc2 = next;
 				professor.setLoc2(getItem(next, "location_line2"));
-
-				//write for loop above here
+				
+				for(String building: buildings){
+					if(loc2.contains(building) || loc1.contains(building)){
+						System.out.println(loc2);
+						professor.setBuilding(building);
+					}
+					
+				}
 				
 				professorList.add(professor);
 			}
