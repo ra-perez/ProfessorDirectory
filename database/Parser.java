@@ -30,6 +30,19 @@ public class Parser {
 	public void populateBuildingList() {
 		buildings = new ArrayList<String>();
 		buildings.add("WAC");
+		buildings.add("Mills");
+		buildings.add("RANEY");
+		buildings.add("Village");
+		buildings.add("Fausett");
+		buildings.add("Ellis");
+		buildings.add("SLTC");
+		buildings.add("MCREY");
+		buildings.add("DWREY");
+		buildings.add("TRIES");
+		buildings.add("MCACX");
+		buildings.add("REYNO");
+		buildings.add("ART");
+		buildings.add("Bailey Library");
 	}
 	
 	public ArrayList<Professor> read() throws FileNotFoundException{
