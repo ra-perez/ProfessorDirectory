@@ -64,8 +64,13 @@ public class Parser {
 	
 	public String getItem(String s, String item) {	// remove <name> and </name> and so on
 		String[] temp = s.split("<" + item + ">");
+		if(temp[1].equals("</" + item + ">")){
+			s = "";
+			return s;
+		}
 		temp = temp[1].toString().split("</" + item + ">");
 		s = temp[0].toString();
+		
 		return s;
 	}
 	
