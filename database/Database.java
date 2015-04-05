@@ -57,6 +57,7 @@ public class Database {
         return makeQuery("SELECT " + column + " FROM Professors GROUP BY " + column);
 	}
 	
+	
 	//private ArrayList<String> getColInfo2(String column) throws ClassNotFoundException, SQLException {
       //  return makeQuery("SELECT " + column + " FROM Professors WHERE Name = 'Susan Ablondi'");
 	//}
@@ -91,4 +92,5 @@ public class Database {
 		String query = "SELECT Name FROM Professors GROUP BY Name";
 		return makeQuery(query);
 	}
+	
 }

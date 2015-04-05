@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 import database.Database;
 import database.Parser;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -42,6 +46,7 @@ public class Controller {
 	ObservableList<String> observableFilteredNamesList;
 	ObservableList<String> observableDepartmentList;
 	ObservableList<String> observableBuildingList;
+	private String dep =  "";
 	
 	@FXML
 	private void initialize() throws ClassNotFoundException, SQLException {
@@ -96,8 +101,19 @@ public class Controller {
 		
 	}
 	
+	///////////////////////////////////////////////////////
+	//This stores the string of the department name selected in the choice box
+	public void getDepartment(){
+		dep = department.getSelectionModel().getSelectedItem();
+	}
+	//This method just returns the stored department name
+	public String getDep(){
+		return dep;
+	}
+	//This method will call switchScreen for the pop up window, please take a look at the professorFile
 	@FXML
 	private void Joinpage() throws IOException{
+		getDepartment();
 		switchScreen("professorFile.fxml");
 		//filteredNames.getSelectionModel().
 	}
@@ -110,7 +126,7 @@ public class Controller {
 		stage.setScene(new Scene(root));
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.initOwner(getInfo.getScene().getWindow());
-		stage.showAndWait();
+		stage.show();
 	}
 
 }
