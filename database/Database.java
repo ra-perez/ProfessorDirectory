@@ -42,9 +42,6 @@ public class Database {
 	}
 	
 	private ArrayList<String> makeQuery(String query) throws ClassNotFoundException, SQLException {
-        Class.forName("org.sqlite.JDBC");
-        Connection con = DriverManager.getConnection("jdbc:sqlite:testdb");
-        Statement stat = con.createStatement();
         ResultSet rs = stat.executeQuery(query);
         ArrayList<String> toReturn = new ArrayList<String>();
         while (rs.next()) {
