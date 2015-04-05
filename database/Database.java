@@ -54,10 +54,11 @@ public class Database {
 	}
 	
 	private ArrayList<String> getColInfo(String column) throws ClassNotFoundException, SQLException {
-        return makeQuery("SELECT " + column + " FROM Professors GROUP BY Department");
+        return makeQuery("SELECT " + column + " FROM Professors GROUP BY " + column);
 	}
 	
-	//public ArrayList<String> getBuildings() throws ClassNotFoundException, SQLException {return getColInfo("Building");}
+	public ArrayList<String> getBuildings1() throws ClassNotFoundException, SQLException {return getColInfo("Loc1");}
+	public ArrayList<String> getBuildings2() throws ClassNotFoundException, SQLException {return getColInfo("Loc2");}
 	public ArrayList<String> getDepartments() throws ClassNotFoundException, SQLException {return getColInfo("Department");}
 	
 	//Below commented out due to issues with parsing Building information from file

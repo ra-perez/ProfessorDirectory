@@ -25,7 +25,8 @@ public class Controller {
 	@FXML
 	ListView<String> filteredNames;
 	Database professorDB;
-	ArrayList<String> buildingList;
+	ArrayList<String> buildingList1;
+	ArrayList<String> buildingList2;
 	ArrayList<String> departmentList;
 	ArrayList<String> filteredNamesList;
 	ObservableList<String> observableFilteredNamesList;
@@ -42,7 +43,8 @@ public class Controller {
 			e.printStackTrace();
 		}
 		professorDB = new Database(p.getProfessors());
-		//buildingList = professorDB.getBuildings();
+		buildingList1 = professorDB.getBuildings1();
+		buildingList2 = professorDB.getBuildings2();
 		departmentList = professorDB.getDepartments();
 		filteredNamesList = professorDB.getName();
 		System.out.println(departmentList.size());
@@ -52,7 +54,7 @@ public class Controller {
 	}
 	
 	private void populateLists() {
-		//populateBuilding();
+		populateBuilding();
 		populateDepartment();
 		populateFilteredNames();
 	}
@@ -66,14 +68,15 @@ public class Controller {
 
 	}
 	
-	/*private void populateBuilding() {
+	private void populateBuilding() {
 		ObservableList<String> observableBuildingList = FXCollections.observableArrayList();
-		for (String name: buildingList) {
-			observableBuildingList.add(name);
-			
+		int i = 0;
+		for (String name: buildingList1) {
+			observableBuildingList.add(name + "------" + buildingList2.get(i));
+			i++;
 		}
 		building.setItems(observableBuildingList);
-	}*/
+	}
 	
 	private void populateDepartment() {
 		ObservableList<String> observableDepartmentList = FXCollections.observableArrayList();
