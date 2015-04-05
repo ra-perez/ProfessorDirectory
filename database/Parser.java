@@ -32,38 +32,29 @@ public class Parser {
 			
 			if(line.equals("  <item>")){
 				Professor professor = new Professor();
-				String head = "";
-				String tail = "";
 				
 				next = s.nextLine();//go to <pic>
 				
 				next = s.nextLine(); 					// go to <name>
-				head = "<name>"; tail = "</name>";
-				professor.setName(getContent(next, head, tail));
+				professor.setName(getItem(next, "name"));
 
 				next = s.nextLine(); 					//go to <title>
-				head = "<title>"; tail = "</title>";
-				professor.setTitle(getContent(next, head, tail));
+				professor.setTitle(getItem(next, "title"));
 
 				next = s.nextLine(); 					// go to <department>
-				head = "<department>"; tail = "</department>";
-				professor.setDepartment(getContent(next, head, tail));
+				professor.setDepartment(getItem(next, "department"));
 
 				next = s.nextLine(); 					// go to <phone>
-				head = "<phone>"; tail = "</phone>";
-				professor.setPhone(getContent(next, head, tail));
+				professor.setPhone(getItem(next, "phone"));
 
 				next = s.nextLine(); 					// go to <email>
-				head = "<email>"; tail = "</email>";
-				professor.setEmail(getContent(next, head, tail));
+				professor.setEmail(getItem(next, "email"));
 
 				next = s.nextLine(); 					// go to <loc1>
-				head = "<location_line1>"; tail = "</location_line1>";
-				professor.setLoc1(getContent(next, head, tail));
+				professor.setLoc1(getItem(next, "location_line1"));
 
 				next = s.nextLine();					 // go to <loc2>
-				head = "<location_line2>"; tail = "</location_line2>";
-				professor.setLoc2(getContent(next, head, tail));
+				professor.setLoc2(getItem(next, "location_line2"));
 
 				professorList.add(professor);
 			}
@@ -71,13 +62,14 @@ public class Parser {
 		
 	}
 	
-	public String getContent(String s, String head, String tail){	// remove <name> and </name> and so on
-		String[] temp = s.split(head);
-		temp = temp[1].toString().split(tail);
+	public String getItem(String s, String item) {	// remove <name> and </name> and so on
+		String[] temp = s.split("<" + item + ">");
+		temp = temp[1].toString().split("</" + item + ">");
 		s = temp[0].toString();
 		return s;
 	}
 	
+
 	public ArrayList<Professor> getProfessors() {return professorList;}
 	
 }
