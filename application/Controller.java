@@ -81,7 +81,7 @@ public class Controller {
 		building.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue ov, Number value, Number new_val) {
 				try {
-					filteredNamesList = professorDB.getFilteredNamesDept(buildingList.get(new_val.intValue()));
+					filteredNamesList = professorDB.getFilteredNamesBuilding(buildingList.get(new_val.intValue()));
 					populateFilteredNames();
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
