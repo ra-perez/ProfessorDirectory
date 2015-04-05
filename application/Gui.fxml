@@ -14,7 +14,10 @@
                   <ListView fx:id="filteredNames" layoutX="-2.0" layoutY="-2.0" prefHeight="534.0" prefWidth="157.0" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="479.0" prefWidth="324.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="479.0" prefWidth="324.0">
+               <children>
+                  <Button fx:id="getInfo" layoutY="497.0" mnemonicParsing="false" onAction="#Joinpage" text="getInfo" />
+               </children></AnchorPane>
         </items>
       </SplitPane>
    </center>

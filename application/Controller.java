@@ -1,6 +1,7 @@
 package application;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -9,12 +10,20 @@ import database.Parser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 
 
 
 public class Controller {
+	
+	@FXML
+	Button getInfo;
 	
 	@FXML
 	ChoiceBox <String> department;
@@ -84,6 +93,20 @@ public class Controller {
 		}
 		department.setItems(observableDepartmentList);
 		
+	}
+	
+	@FXML
+	private void Joinpage() throws IOException{
+		switchScreen("professorFile.fxml");
+		//filteredNames.getSelectionModel().
+	}
+	
+	private void switchScreen(String FXMLFile) throws IOException {
+		Parent home_page_parent = FXMLLoader.load(getClass().getResource(FXMLFile));
+		Scene home_page_scene = new Scene(home_page_parent);
+		Stage app_stage = (Stage) getInfo.getScene().getWindow();
+		app_stage.setScene(home_page_scene);
+		app_stage.show();
 	}
 
 }
