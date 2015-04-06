@@ -11,17 +11,17 @@ public class Parser {
 	//Go through information in TXT file
 	//Create an ArrayList of type Professor
 	//Create a new Professor object for every <item> - </item> chunk of text
-	String filename = "ProfessorInfo";
+	private String fileName;
 	private String line = "";
 	private String next = "";
-	Professor professor = new Professor();
-	
+	private ArrayList<Professor> professorList;
 	
 	public Parser(){
-		
+		fileName = "ProfessorInfo";
+		professorList = new ArrayList<Professor>();
 	}
 	public void read() throws FileNotFoundException{
-		File f = new File(filename);
+		File f = new File(fileName);
 		Scanner s = new Scanner(f);
 		parsing(s);
 	}
@@ -31,6 +31,7 @@ public class Parser {
 			line = s.nextLine();
 			
 			if(line.equals("  <item>")){
+				Professor professor = new Professor();
 				String head = "";
 				String tail = "";
 				
@@ -64,7 +65,7 @@ public class Parser {
 				head = "<location_line2>"; tail = "</location_line2>";
 				professor.setLoc2(getContent(next, head, tail));
 
-				
+				professorList.add(professor);
 			}
 		}
 		
@@ -77,5 +78,6 @@ public class Parser {
 		return s;
 	}
 	
-
+	public ArrayList<Professor> getProfessors() {return professorList;}
+	
 }

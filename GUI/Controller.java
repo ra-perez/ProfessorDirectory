@@ -1,5 +1,6 @@
 package GUI;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -26,6 +27,12 @@ public class Controller {
 	@FXML
 	private void initialize() throws ClassNotFoundException, SQLException {
 		Parser p = new Parser();
+		try {
+			p.read();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		professorDB = new Database(p.getProfessors());
 		buildingList = professorDB.getBuildings();
 		departmentList = professorDB.getDepartments();
