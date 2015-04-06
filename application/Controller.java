@@ -37,7 +37,7 @@ public class Controller {
 			e.printStackTrace();
 		}
 		professorDB = new Database(p.getProfessors());
-		buildingList = professorDB.getBuildings();
+		//buildingList = professorDB.getBuildings();
 		departmentList = professorDB.getDepartments();
 		filteredNamesList = professorDB.getAllNames();
 	}

@@ -57,7 +57,7 @@ public class Database {
         return makeQuery("SELECT " + column + " FROM Professors");
 	}
 	
-	public ArrayList<String> getBuildings() throws ClassNotFoundException, SQLException {return getColInfo("Building");}
+	//public ArrayList<String> getBuildings() throws ClassNotFoundException, SQLException {return getColInfo("Building");}
 	public ArrayList<String> getDepartments() throws ClassNotFoundException, SQLException {return getColInfo("Department");}
 	
 	//Below commented out due to issues with parsing Building information from file
