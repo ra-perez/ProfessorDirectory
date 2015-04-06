@@ -32,7 +32,6 @@ public class Database {
 	public void populateDatabase() throws ClassNotFoundException, SQLException {
         //stat.executeUpdate("INSERT INTO Professors VALUES ('Nikola Tesla', 'Professor of Science', 'Sciencey Science', '(900) 817 - 9234', 'tesla@hendrix.edu', 'The Moon', 'Literally The Moon')");
         for (Professor p: professors) {
-        	System.out.println(p.getName());
 	        stat.executeUpdate("INSERT INTO Professors VALUES ('" +
 	        	p.getName() + "', '" +
 	            p.getTitle() + "', '" +
@@ -55,7 +54,7 @@ public class Database {
 	}
 	
 	private ArrayList<String> getColInfo(String column) throws ClassNotFoundException, SQLException {
-        return makeQuery("SELECT " + column + " FROM Professors");
+        return makeQuery("SELECT " + column + " FROM Professors GROUP BY Department");
 	}
 	
 	//public ArrayList<String> getBuildings() throws ClassNotFoundException, SQLException {return getColInfo("Building");}

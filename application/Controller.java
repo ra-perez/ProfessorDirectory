@@ -50,7 +50,7 @@ public class Controller {
 	
 	private void populateLists() {
 		//populateBuilding();
-		//populateDepartment();
+		populateDepartment();
 		populateFilteredNames();
 	}
 	
@@ -59,7 +59,6 @@ public class Controller {
 		for (String name: filteredNamesList) {
 			observableFilteredNamesList.add(name);
 		}
-		System.out.println(filteredNamesList);
 		filteredNames.setItems(observableFilteredNamesList);
 
 	}
@@ -72,16 +71,18 @@ public class Controller {
 		}
 	}*/
 	
-	/*private void populateDepartment() {
+   private void populateDepartment() {
 		ObservableList<String> observableDepartmentList = FXCollections.observableArrayList();
 		for (String name: departmentList) {
-			observableDepartmentList.addAll(name);
-			department = new ObservableList<MenuItem> getItems();
+			observableDepartmentList.add(name);
+			
 		}
+		System.out.println(departmentList);
+		department.setItems(observableDepartmentList);
 		
 	}
 	
-	public void MenuButton() {
+	/*public void MenuButton() {
 		ObservableList<String> observableDepartmentList = FXCollections.observableArrayList();
 		for (String name: departmentList) {
 			observableDepartmentList.add(name);
