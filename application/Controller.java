@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import database.Database;
 import database.Parser;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitMenuButton;
@@ -23,6 +25,7 @@ public class Controller {
 	ArrayList<String> buildingList;
 	ArrayList<String> departmentList;
 	ArrayList<String> filteredNamesList;
+	ObservableList<String> observableFilteredNamesList;
 	
 	@FXML
 	private void initialize() throws ClassNotFoundException, SQLException {
@@ -42,12 +45,14 @@ public class Controller {
 	private void populateLists() {
 		populateBuilding();
 		populateDepartment();
-		populatefilteredNames();
+		populateFilteredNames();
 	}
 	
 	private void populateFilteredNames() {
-		for (String building: buildingList) {
-			filteredNames.
+		ObservableList<String> observableFilteredNamesList = FXCollections.observableArrayList();
+		for (String name: filteredNamesList) {
+			observableFilteredNamesList.add(name);
 		}
+		filteredNames = new ListView<String>(observableFilteredNamesList);
 	}
 }
