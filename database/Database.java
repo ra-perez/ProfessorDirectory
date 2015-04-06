@@ -5,19 +5,29 @@ import java.sql.*;
 
 public class Database {
 	private ArrayList<Professor> professors;
+	private Statement stat;
 	
-	public Database(ArrayList<Professor> p) {
-		professors = p;
-	}
-	
-	public void initializeDatabase() throws ClassNotFoundException, SQLException {
+	public Database(ArrayList<Professor> p) throws SQLException, ClassNotFoundException {
         Class.forName("org.sqlite.JDBC");
         Connection con = DriverManager.getConnection("jdbc:sqlite:professors.db");
-        Statement stat = con.createStatement();
+        stat = con.createStatement();
+		professors = p;
+		
+		initializeDatabase();
+	}
+	
+	private void initializeDatabase() throws ClassNotFoundException {
+        try {
+        	stat.executeUpdate("CREATE TABLE Professors (Name STRING, Title STRING, Department STRING, Phone STRING, Email STRING, Loc1 STRING, Loc2 STRING)");
+        	populateDatabase();
+        } catch (SQLException exception) {
+        	return;
+        }
 
-        stat.executeUpdate("DROP TABLE IF EXISTS Professors");
-        stat.executeUpdate("CREATE TABLE Professors (Name STRING, Title STRING, Department STRING, Phone STRING, Email STRING, Loc1 STRING, Loc2 STRING)");
-		for (Professor p: professors) {
+	}
+	
+	public void populateDatabase() throws ClassNotFoundException, SQLException {
+        for (Professor p: professors) {
 	        stat.executeUpdate("INSERT INTO Professors VALUE (" +
 	        	p.getName() + ", " +
 	        	p.getTitle() + ", " +
