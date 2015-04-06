@@ -27,6 +27,7 @@ public class Database {
 	}
 	
 	public void populateDatabase() throws ClassNotFoundException, SQLException {
+        stat.executeUpdate("INSERT INTO Professors VALUE ('Nikola Tesla', 'Professor of Science', 'Sciencey Science', '(900) 817 - 9234', 'tesla@hendrix.edu', 'The Moon', 'Literally The Moon')");
         for (Professor p: professors) {
 	        stat.executeUpdate("INSERT INTO Professors VALUE (" +
 	        	p.getName() + ", " +
@@ -58,10 +59,11 @@ public class Database {
 	
 	public ArrayList<String> getBuildings() throws ClassNotFoundException, SQLException {return getColInfo("Building");}
 	public ArrayList<String> getDepartments() throws ClassNotFoundException, SQLException {return getColInfo("Department");}
-		
+	
+	//Below commented out due to issues with parsing Building information from file
 	//Give an empty string for input variables if not filtered on that information
 	//So getFilteredNames("", "") returns all Professor Names
-	public ArrayList<String> getFilteredNames(String building, String department) throws ClassNotFoundException, SQLException {
+	/*public ArrayList<String> getFilteredNames(String building, String department) throws ClassNotFoundException, SQLException {
 		String query = "";
 		if (department.equals("")) {
 			query = "SELECT Name FROM Professors WHERE Building = '" + building + "'";
@@ -73,6 +75,15 @@ public class Database {
 			query = "SELECT Name FROM Professors";
 		}
 		return makeQuery(query);
+	}*/
+	
+	public ArrayList<String> getFilteredNames(String department) throws ClassNotFoundException, SQLException {
+		String query = "SELECT Name FROM Professors WHERE Department = '" + department + "'";
+		return makeQuery(query);
 	}
-
+	
+	public ArrayList<String> getAllNames() throws ClassNotFoundException, SQLException {
+		String query = "SELECT Name FROM Professors";
+		return makeQuery(query);
+	}
 }

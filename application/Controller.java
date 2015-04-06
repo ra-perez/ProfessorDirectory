@@ -39,12 +39,12 @@ public class Controller {
 		professorDB = new Database(p.getProfessors());
 		buildingList = professorDB.getBuildings();
 		departmentList = professorDB.getDepartments();
-		filteredNamesList = professorDB.getFilteredNames("", "");
+		filteredNamesList = professorDB.getAllNames();
 	}
 	
 	private void populateLists() {
-		populateBuilding();
-		populateDepartment();
+		//populateBuilding();
+		//populateDepartment();
 		populateFilteredNames();
 	}
 	
