@@ -38,4 +38,16 @@ public class Controller {
 		departmentList = professorDB.getDepartments();
 		filteredNamesList = professorDB.getFilteredNames("", "");
 	}
+	
+	private void populateLists() {
+		populateBuilding();
+		populateDepartment();
+		populatefilteredNames();
+	}
+	
+	private void populateFilteredNames() {
+		for (String building: buildingList) {
+			filteredNames.
+		}
+	}
 }
