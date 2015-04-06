@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.SplitMenuButton;
 
 
@@ -18,7 +19,7 @@ public class Controller {
 	@FXML
 	SplitMenuButton building;
 	@FXML
-	SplitMenuButton department;
+	MenuButton department;
 	@FXML
 	ListView<String> filteredNames;
 	Database professorDB;
@@ -54,5 +55,13 @@ public class Controller {
 			observableFilteredNamesList.add(name);
 		}
 		filteredNames = new ListView<String>(observableFilteredNamesList);
+
+	}
+	
+	private void populatebuilding() {
+		ObservableList<String> observableBuilding = FXCollections.observableArrayList();
+		for (String name: buildingList) {
+			observableBuilding.add(name);
+		}
 	}
 }
