@@ -9,17 +9,16 @@ import database.Parser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.SplitMenuButton;
+
 
 
 public class Controller {
 	
 	@FXML
-	SplitMenuButton building;
-	@FXML
-	MenuButton department;
+	ChoiceBox <String> department;
+	
 	@FXML
 	ListView<String> filteredNames;
 	Database professorDB;
@@ -27,6 +26,8 @@ public class Controller {
 	ArrayList<String> departmentList;
 	ArrayList<String> filteredNamesList;
 	ObservableList<String> observableFilteredNamesList;
+	ObservableList<String> observableDepartmentList;
+
 	
 	@FXML
 	private void initialize() throws ClassNotFoundException, SQLException {
@@ -40,7 +41,11 @@ public class Controller {
 		professorDB = new Database(p.getProfessors());
 		//buildingList = professorDB.getBuildings();
 		departmentList = professorDB.getDepartments();
-		filteredNamesList = professorDB.getAllNames();
+		filteredNamesList = professorDB.getName();
+		System.out.println(departmentList.size());
+		populateLists();
+		
+		
 	}
 	
 	private void populateLists() {
@@ -54,14 +59,33 @@ public class Controller {
 		for (String name: filteredNamesList) {
 			observableFilteredNamesList.add(name);
 		}
-		filteredNames = new ListView<String>(observableFilteredNamesList);
+		System.out.println(filteredNamesList);
+		filteredNames.setItems(observableFilteredNamesList);
 
 	}
 	
-	private void populatebuilding() {
+	/*private void populatebuilding() {
 		ObservableList<String> observableBuilding = FXCollections.observableArrayList();
 		for (String name: buildingList) {
 			observableBuilding.add(name);
+			
 		}
+	}*/
+	
+	/*private void populateDepartment() {
+		ObservableList<String> observableDepartmentList = FXCollections.observableArrayList();
+		for (String name: departmentList) {
+			observableDepartmentList.addAll(name);
+			department = new ObservableList<MenuItem> getItems();
+		}
+		
 	}
+	
+	public void MenuButton() {
+		ObservableList<String> observableDepartmentList = FXCollections.observableArrayList();
+		for (String name: departmentList) {
+			observableDepartmentList.add(name);
+		}
+		department.getItems();
+	}*/
 }

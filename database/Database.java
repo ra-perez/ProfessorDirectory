@@ -18,25 +18,29 @@ public class Database {
 	
 	private void initializeDatabase() throws ClassNotFoundException {
         try {
-        	stat.executeUpdate("CREATE TABLE Professors (Name STRING, Title STRING, Department STRING, Phone STRING, Email STRING, Loc1 STRING, Loc2 STRING)");
+        	stat.executeUpdate("DROP TABLE IF EXISTS Professors");
+        	
+        	stat.executeUpdate("CREATE TABLE IF NOT EXISTS Professors (Name TEXT, Title TEXT, Department TEXT, Phone TEXT, Email TEXT, Loc1 TEXT, Loc2 TEXT)");
         	populateDatabase();
         } catch (SQLException exception) {
+        	exception.printStackTrace();
         	return;
         }
 
 	}
 	
 	public void populateDatabase() throws ClassNotFoundException, SQLException {
-        stat.executeUpdate("INSERT INTO Professors VALUE ('Nikola Tesla', 'Professor of Science', 'Sciencey Science', '(900) 817 - 9234', 'tesla@hendrix.edu', 'The Moon', 'Literally The Moon')");
+        //stat.executeUpdate("INSERT INTO Professors VALUES ('Nikola Tesla', 'Professor of Science', 'Sciencey Science', '(900) 817 - 9234', 'tesla@hendrix.edu', 'The Moon', 'Literally The Moon')");
         for (Professor p: professors) {
-	        stat.executeUpdate("INSERT INTO Professors VALUE (" +
-	        	p.getName() + ", " +
-	        	p.getTitle() + ", " +
-	       		p.getDepartment() + ", " +
-	       		p.getPhone() + ", " +
-	       		p.getEmail() + ", " +
-	       		p.getLoc1() + ", " +
-	       		p.getLoc2() + ")"
+        	System.out.println(p.getName());
+	        stat.executeUpdate("INSERT INTO Professors VALUES ('" +
+	        	p.getName() + "', '" +
+	            p.getTitle() + "', '" +
+	       		p.getDepartment() + "', '" +
+	       		p.getPhone() + "', '" +
+	       		p.getEmail() + "', '" +
+	       		p.getLoc1() + "', '" +
+	       		p.getLoc2() + "')"
 	        );
 		}
 	}
@@ -45,7 +49,7 @@ public class Database {
         ResultSet rs = stat.executeQuery(query);
         ArrayList<String> toReturn = new ArrayList<String>();
         while (rs.next()) {
-        	toReturn.add(rs.getString("Building"));
+        	toReturn.add(rs.getString(1));
         }
         return toReturn;
 	}
@@ -79,8 +83,8 @@ public class Database {
 		return makeQuery(query);
 	}
 	
-	public ArrayList<String> getAllNames() throws ClassNotFoundException, SQLException {
-		String query = "SELECT Name FROM Professors";
+	public ArrayList<String> getName() throws ClassNotFoundException, SQLException {
+		String query = "SELECT Name FROM Professors GROUP BY Name";
 		return makeQuery(query);
 	}
 }
