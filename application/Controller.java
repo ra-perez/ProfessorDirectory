@@ -57,6 +57,10 @@ public class Controller {
 		populateFilteredNames();
 	}
 	
+	private void populateDepartment() {
+		
+	}
+	
 	private void populateFilteredNames() {
 		ObservableList<String> observableFilteredNamesList = FXCollections.observableArrayList();
 		for (String name: filteredNamesList) {
