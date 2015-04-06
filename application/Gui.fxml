@@ -5,16 +5,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="471.0" prefWidth="409.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+<BorderPane prefHeight="564.0" prefWidth="531.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <center>
-      <SplitPane dividerPositions="0.29797979797979796" prefHeight="412.0" prefWidth="409.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.29797979797979796" prefHeight="518.0" prefWidth="511.0" BorderPane.alignment="CENTER">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ListView fx:id="filteredNames" layoutX="-2.0" layoutY="-2.0" prefHeight="442.0" prefWidth="121.0" />
+                  <ListView fx:id="filteredNames" layoutX="-2.0" layoutY="-2.0" prefHeight="534.0" prefWidth="157.0" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="362.0" prefWidth="278.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="479.0" prefWidth="324.0" />
         </items>
       </SplitPane>
    </center>
@@ -23,6 +23,8 @@
          <children>
             <ChoiceBox fx:id="department" layoutX="84.0" layoutY="5.0" prefWidth="150.0" />
             <Label layoutX="6.0" layoutY="10.0" text="Department" />
+            <ChoiceBox fx:id="building" layoutX="375.0" layoutY="5.0" prefWidth="150.0" />
+            <Label layoutX="324.0" layoutY="10.0" prefHeight="16.0" prefWidth="51.0" text="Building" />
          </children></AnchorPane>
    </top>
 </BorderPane>

@@ -20,6 +20,9 @@ public class Controller {
 	ChoiceBox <String> department;
 	
 	@FXML
+	ChoiceBox <String> building;
+	
+	@FXML
 	ListView<String> filteredNames;
 	Database professorDB;
 	ArrayList<String> buildingList;
@@ -27,7 +30,7 @@ public class Controller {
 	ArrayList<String> filteredNamesList;
 	ObservableList<String> observableFilteredNamesList;
 	ObservableList<String> observableDepartmentList;
-
+	ObservableList<String> observableBuildingList;
 	
 	@FXML
 	private void initialize() throws ClassNotFoundException, SQLException {
@@ -50,7 +53,7 @@ public class Controller {
 	
 	private void populateLists() {
 		//populateBuilding();
-		//populateDepartment();
+		populateDepartment();
 		populateFilteredNames();
 	}
 	
@@ -59,33 +62,27 @@ public class Controller {
 		for (String name: filteredNamesList) {
 			observableFilteredNamesList.add(name);
 		}
-		System.out.println(filteredNamesList);
 		filteredNames.setItems(observableFilteredNamesList);
 
 	}
 	
-	/*private void populatebuilding() {
-		ObservableList<String> observableBuilding = FXCollections.observableArrayList();
+	/*private void populateBuilding() {
+		ObservableList<String> observableBuildingList = FXCollections.observableArrayList();
 		for (String name: buildingList) {
-			observableBuilding.add(name);
+			observableBuildingList.add(name);
 			
 		}
+		building.setItems(observableBuildingList);
 	}*/
 	
-	/*private void populateDepartment() {
-		ObservableList<String> observableDepartmentList = FXCollections.observableArrayList();
-		for (String name: departmentList) {
-			observableDepartmentList.addAll(name);
-			department = new ObservableList<MenuItem> getItems();
-		}
-		
-	}
-	
-	public void MenuButton() {
+	private void populateDepartment() {
 		ObservableList<String> observableDepartmentList = FXCollections.observableArrayList();
 		for (String name: departmentList) {
 			observableDepartmentList.add(name);
+			
 		}
-		department.getItems();
-	}*/
+		department.setItems(observableDepartmentList);
+		
+	}
+
 }
