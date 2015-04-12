@@ -31,7 +31,7 @@ public class Database {
 		}
 
         try {        	
-        	stat.executeUpdate("CREATE TABLE IF NOT EXISTS Professors (Name TEXT, Title TEXT, Department TEXT, Phone TEXT, Email TEXT, Loc1 TEXT, Loc2 TEXT)");
+        	stat.executeUpdate("CREATE TABLE IF NOT EXISTS Professors (Name TEXT, Title TEXT, Department TEXT, Building TEXT, Phone TEXT, Email TEXT, Loc1 TEXT, Loc2 TEXT)");
         	populateDatabase(professors);
         } catch (SQLException exception) {
         	exception.printStackTrace();
@@ -46,6 +46,7 @@ public class Database {
 	        	p.getName() + "', '" +
 	            p.getTitle() + "', '" +
 	       		p.getDepartment() + "', '" +
+	            p.getBuilding() + "', '" +
 	       		p.getPhone() + "', '" +
 	       		p.getEmail() + "', '" +
 	       		p.getLoc1() + "', '" +
