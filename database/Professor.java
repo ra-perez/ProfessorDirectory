@@ -1,12 +1,13 @@
 package database;
 
 public class Professor {
-	private String name, title, department, phone, email, loc1, loc2;
+	private String name, title, department, building, phone, email, loc1, loc2;
 	
-	public Professor(String name, String title, String department, String phone, String email, String loc1, String loc2) {
+	public Professor(String name, String title, String department, String building, String phone, String email, String loc1, String loc2) {
 		this.name = name;
 		this.title = title;
 		this.department = department;
+		this.building = building;
 		this.phone = phone;
 		this.email = email;
 		this.loc1 = loc1;
@@ -29,6 +30,10 @@ public class Professor {
 		department = s;
 	}
 
+	public void setBuilding(String s) {
+		building = s;
+	}
+	
 	public void setPhone(String s) {
 		phone = s;
 	}
@@ -57,6 +62,10 @@ public class Professor {
 		return department;
 	}
 
+	public String getBuilding() {
+		return building;
+	}
+	
 	public String getPhone() {
 		return phone;
 	}

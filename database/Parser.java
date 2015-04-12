@@ -8,6 +8,13 @@ import java.util.Scanner;
 
 
 public class Parser {
+	
+	//Make list of all known buildings (check the file to see how they are spelled/if there are variations)
+		//EX: MCRey vs MC Reynolds
+	//for (String building: buildings) 
+		//if loc1.contains building || loc2.contains building
+			//that buliding is that professor's building, professor.setBuilding(building)
+	
 	private String fileName;
 	private String line = "";
 	private String next = "";
@@ -25,6 +32,8 @@ public class Parser {
 	
 	private void parsing(Scanner s){
 		while (s.hasNextLine()){
+			String loc1;
+			String loc2;
 			line = s.nextLine();
 			
 			if(line.equals("  <item>")){
@@ -48,11 +57,15 @@ public class Parser {
 				professor.setEmail(getItem(next, "email"));
 
 				next = s.nextLine();
+				loc1 = next;
 				professor.setLoc1(getItem(next, "location_line1"));
 
 				next = s.nextLine();
+				loc2 = next;
 				professor.setLoc2(getItem(next, "location_line2"));
 
+				//write for loop above here
+				
 				professorList.add(professor);
 			}
 		}
