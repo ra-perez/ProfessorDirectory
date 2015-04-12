@@ -19,11 +19,18 @@ public class Parser {
 	private String line = "";
 	private String next = "";
 	private ArrayList<Professor> professorList;
+	private ArrayList<String> buildings;
 	
 	public Parser(){
 		fileName = "ProfessorInfo";
 		professorList = new ArrayList<Professor>();
+		populateBuildingList();
 	}
+	
+	public void populateBuildingList() {
+		buildings.add("WAC");
+	}
+	
 	public void read() throws FileNotFoundException{
 		File f = new File(fileName);
 		Scanner s = new Scanner(f);

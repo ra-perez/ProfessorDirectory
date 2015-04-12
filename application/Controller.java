@@ -45,9 +45,8 @@ public class Controller {
 	TextArea professorInfo;
 	
 	Database professorDB;
-	ArrayList<String> buildingList1;
-	ArrayList<String> buildingList2;
 	ArrayList<String> departmentList;
+	ArrayList<String> buildingList;
 	ArrayList<String> filteredNamesList;
 	ObservableList<String> observableFilteredNamesList = FXCollections.observableArrayList();
 	ObservableList<String> observableDepartmentList;
@@ -57,9 +56,8 @@ public class Controller {
 	@FXML
 	private void initialize() throws ClassNotFoundException, SQLException {
 		professorDB = new Database();
-		buildingList1 = professorDB.getBuildings1();
-		buildingList2 = professorDB.getBuildings2();
 		departmentList = professorDB.getDepartments();
+		buildingList = professorDB.getBuildings();
 		filteredNamesList = professorDB.getName();
 		populateLists();
 		professorInfo.setWrapText(true);
@@ -97,7 +95,7 @@ public class Controller {
 	
 	private void populateBuilding() {
 		ObservableList<String> observableBuildingList = FXCollections.observableArrayList();
-		for (String name: buildingList2) {
+		for (String name: buildingList) {
 			observableBuildingList.add(name);
 		}
 		building.setItems(observableBuildingList);

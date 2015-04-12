@@ -68,10 +68,10 @@ public class Database {
         return makeQuery("SELECT " + column + " FROM Professors GROUP BY " + column);
 	}
 		
-	public ArrayList<String> getBuildings1() throws ClassNotFoundException, SQLException {return getColInfo("Loc1");}
-	public ArrayList<String> getBuildings2() throws ClassNotFoundException, SQLException {return getColInfo("Loc2");}
 	public ArrayList<String> getDepartments() throws ClassNotFoundException, SQLException {return getColInfo("Department");}
 		
+	public ArrayList<String> getBuildings() throws ClassNotFoundException, SQLException {return getColInfo("Bulding");}
+	
 	public ArrayList<String> getFilteredNames(String department) throws ClassNotFoundException, SQLException {
 		String query;
 		if (!department.equals("") && department != null) {
