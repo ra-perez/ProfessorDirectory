@@ -28,6 +28,7 @@ public class Parser {
 	}
 	
 	public void populateBuildingList() {
+		buildings = new ArrayList<String>();
 		buildings.add("WAC");
 	}
 	
