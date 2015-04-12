@@ -72,9 +72,13 @@ public class Database {
 	public ArrayList<String> getDepartments() throws ClassNotFoundException, SQLException {return getColInfo("Department");}
 		
 	public ArrayList<String> getFilteredNames(String department) throws ClassNotFoundException, SQLException {
-		String query = "SELECT Name FROM Professors WHERE Department = '" + department + "'";
+		String query;
+		if (!department.equals("") && department != null) {
+			query = "SELECT Name FROM Professors WHERE Department = '" + department + "'";
+		} else {
+			query = "SELECT Name FROM Professors";
+		}
 		return makeQuery(query);
-
 	}
 	public ArrayList<String> getName() throws ClassNotFoundException, SQLException {
 		String query = "SELECT Name FROM Professors GROUP BY Name";

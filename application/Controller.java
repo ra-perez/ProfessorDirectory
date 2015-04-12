@@ -49,7 +49,7 @@ public class Controller {
 	ArrayList<String> buildingList2;
 	ArrayList<String> departmentList;
 	ArrayList<String> filteredNamesList;
-	ObservableList<String> observableFilteredNamesList;
+	ObservableList<String> observableFilteredNamesList = FXCollections.observableArrayList();
 	ObservableList<String> observableDepartmentList;
 	ObservableList<String> observableBuildingList;
 	private String dep =  "";
@@ -61,8 +61,23 @@ public class Controller {
 		buildingList2 = professorDB.getBuildings2();
 		departmentList = professorDB.getDepartments();
 		filteredNamesList = professorDB.getName();
-		System.out.println(departmentList.size());
 		populateLists();
+		professorInfo.setWrapText(true);
+		
+		department.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue ov, Number value, Number new_val) {
+				try {
+					filteredNamesList = professorDB.getFilteredNames(departmentList.get(new_val.intValue()));
+					populateFilteredNames();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+			}
+		});
 	}
 	
 	private void populateLists() {
@@ -70,14 +85,14 @@ public class Controller {
 		populateDepartment();
 		populateFilteredNames();
 	}
+		
 	
 	private void populateFilteredNames() {
-		ObservableList<String> observableFilteredNamesList = FXCollections.observableArrayList();
+		observableFilteredNamesList.clear();
 		for (String name: filteredNamesList) {
 			observableFilteredNamesList.add(name);
 		}
 		filteredNames.setItems(observableFilteredNamesList);
-
 	}
 	
 	private void populateBuilding() {
@@ -98,13 +113,10 @@ public class Controller {
 		
 	}
 	
-	///////////////////////////////////////////////////////
-	//This stores the string of the department name selected in the choice box
 	public void getDepartment(){
 		dep = department.getSelectionModel().getSelectedItem();
 	}
 	
-	//This method just returns the stored department name
 	public String getDep(){
 		return dep;
 	}
@@ -151,5 +163,15 @@ public class Controller {
 				"Location: " + loc1 + " - " + loc2;
 		return info;
 	}
+	
+//	@FXML
+//	public void handleMouseClickDepartment(MouseEvent arg0) throws ClassNotFoundException, SQLException {
+//		System.out.println("In onClick");
+//		filteredNamesList = professorDB.getFilteredNames(department.getSelectionModel().getSelectedItem());	
+//		System.out.println("Deparment: " + department.getSelectionModel().getSelectedItem());
+//		for (String name: filteredNamesList) {
+//			System.out.println(name);
+//		}
+//	}
 
 }
