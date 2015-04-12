@@ -70,7 +70,7 @@ public class Database {
 		
 	public ArrayList<String> getDepartments() throws ClassNotFoundException, SQLException {return getColInfo("Department");}
 		
-	public ArrayList<String> getBuildings() throws ClassNotFoundException, SQLException {return getColInfo("Bulding");}
+	public ArrayList<String> getBuildings() throws ClassNotFoundException, SQLException {return getColInfo("Building");}
 	
 	public ArrayList<String> getFilteredNames(String department) throws ClassNotFoundException, SQLException {
 		String query;
