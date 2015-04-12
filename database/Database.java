@@ -12,10 +12,12 @@ public class Database {
         Connection con = DriverManager.getConnection("jdbc:sqlite:professors.db");
         stat = con.createStatement();
 		
-        //ResultSet r = stat.executeQuery("SHOW DATABASES LIKE 'Professors'");
-        //if (!r.next()) {
-    		initializeDatabase();
-        //}
+        DatabaseMetaData meta = con.getMetaData();
+        ResultSet res = meta.getTables(null, null, "My_Table_Name", 
+           new String[] {"TABLE"});
+        if (!res.next()) {
+        	initializeDatabase();
+        }
 	}
 	
 	private void initializeDatabase() throws ClassNotFoundException {
