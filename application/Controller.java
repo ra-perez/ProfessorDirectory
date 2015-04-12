@@ -20,6 +20,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -38,6 +40,10 @@ public class Controller {
 	
 	@FXML
 	ListView<String> filteredNames;
+	
+	@FXML
+	TextArea professorInfo;
+	
 	Database professorDB;
 	ArrayList<String> buildingList1;
 	ArrayList<String> buildingList2;
@@ -50,22 +56,13 @@ public class Controller {
 	
 	@FXML
 	private void initialize() throws ClassNotFoundException, SQLException {
-		Parser p = new Parser();
-		try {
-			p.read();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		professorDB = new Database(p.getProfessors());
+		professorDB = new Database();
 		buildingList1 = professorDB.getBuildings1();
 		buildingList2 = professorDB.getBuildings2();
 		departmentList = professorDB.getDepartments();
 		filteredNamesList = professorDB.getName();
 		System.out.println(departmentList.size());
 		populateLists();
-		
-		
 	}
 	
 	private void populateLists() {
@@ -106,10 +103,12 @@ public class Controller {
 	public void getDepartment(){
 		dep = department.getSelectionModel().getSelectedItem();
 	}
+	
 	//This method just returns the stored department name
 	public String getDep(){
 		return dep;
 	}
+	
 	//This method will call switchScreen for the pop up window, please take a look at the professorFile
 	@FXML
 	private void Joinpage() throws IOException{
@@ -127,6 +126,30 @@ public class Controller {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.initOwner(getInfo.getScene().getWindow());
 		stage.show();
+	}
+	
+	@FXML
+	public void handleMouseClick(MouseEvent arg0) throws ClassNotFoundException, SQLException {
+		String info = writeText();
+		professorInfo.setText(info);
+	}
+	
+	public String writeText() throws ClassNotFoundException, SQLException {
+		String name = filteredNames.getSelectionModel().getSelectedItem();
+		String department = professorDB.getInfoGivenName(name, "Department").get(0);
+		String title = professorDB.getInfoGivenName(name, "Title").get(0);
+		String email = professorDB.getInfoGivenName(name, "Email").get(0);
+		String phone = professorDB.getInfoGivenName(name, "Phone").get(0);
+		String loc1 = professorDB.getInfoGivenName(name, "Loc1").get(0);
+		String loc2 = professorDB.getInfoGivenName(name, "Loc2").get(0);
+		
+		String info = "Name: " + name + "\n" +
+				"Department: " + department + "\n" +
+				"Title: " + title + "\n" +
+				"Email: " + email + "\n" +
+				"Phone: " + phone + "\n" +
+				"Location: " + loc1 + " - " + loc2;
+		return info;
 	}
 
 }
