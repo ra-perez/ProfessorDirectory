@@ -87,7 +87,6 @@ public class Parser {
 				
 				for(String building: buildings){
 					if(loc2.contains(building) || loc1.contains(building)){
-						System.out.println(loc2);
 						professor.setBuilding(building);
 					}
 					

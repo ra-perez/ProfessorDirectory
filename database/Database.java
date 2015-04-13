@@ -34,7 +34,7 @@ public class Database {
 		}
 
         try {
-        	stat.executeUpdate("CREATE TABLE IF NOT EXISTS Professors (Name TEXT, Title TEXT, Department TEXT, Building TEXT, Phone TEXT, Email TEXT, Loc1 TEXT, Loc2 TEXT)");
+        	stat.executeUpdate("CREATE TABLE IF NOT EXISTS Professors (Name TEXT, Title TEXT, Department TEXT, Building TEXT, Phone TEXT, Email TEXT, Loc1 TEXT, Loc2 TEXT, AdditionalInfo TEXT)");
         	populateDatabase(professors);
         } catch (SQLException exception) {
         	exception.printStackTrace();
@@ -52,7 +52,8 @@ public class Database {
 	       		p.getPhone() + "', '" +
 	       		p.getEmail() + "', '" +
 	       		p.getLoc1() + "', '" +
-	       		p.getLoc2() + "')"
+	       		p.getLoc2() + "', '" +
+	       		p.getAdditionalInfo() + "')"
 	        );
 		}
 	}
@@ -95,7 +96,7 @@ public class Database {
 	}
 	
 	public ArrayList<String> getName() throws ClassNotFoundException, SQLException {
-		String query = "SELECT Name FROM Professors GROUP BY Name";
+		String query = "SELECT Name FROM Professors";
 		return makeQuery(query);
 	}
 	
@@ -105,8 +106,8 @@ public class Database {
 	}
 	
 	public void updateColumn(String name, String column, String update) throws ClassNotFoundException, SQLException {
-		String query = "UPDATE Professors SET " + column + " = " + update + " WHERE Name = '" + name + "'";
-		makeQuery(query);
+		String updateCommand = "UPDATE Professors SET " + column + " = '" + update + "' WHERE Name = '" + name + "'";
+		stat.executeUpdate(updateCommand);
 	}
 	
 }

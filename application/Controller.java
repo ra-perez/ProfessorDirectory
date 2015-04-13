@@ -92,7 +92,6 @@ public class Controller {
 				}	
 			}
 		});
-
 	}
 	
 	private void populateLists() {
@@ -169,6 +168,7 @@ public class Controller {
 		String phone = professorDB.getInfoGivenName(name, "Phone").get(0);
 		String loc1 = professorDB.getInfoGivenName(name, "Loc1").get(0);
 		String loc2 = professorDB.getInfoGivenName(name, "Loc2").get(0);
+		String additionalInfo = professorDB.getInfoGivenName(name, "AdditionalInfo").get(0);
 		
 		String info = "Name: " + name + "\n" +
 				"Department: " + department + "\n" +
@@ -179,6 +179,7 @@ public class Controller {
 		if (!loc2.equals("") && loc2 != null) {
 			info += " - " + loc2;
 		}
+		info += "\n" + additionalInfo;
 		return info;
 	}
 
