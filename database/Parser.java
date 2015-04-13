@@ -85,11 +85,16 @@ public class Parser {
 				loc2 = next;
 				professor.setLoc2(getItem(next, "location_line2"));
 				
+				boolean hasBuilding = false;
 				for(String building: buildings){
 					if(loc2.contains(building) || loc1.contains(building)){
 						professor.setBuilding(building);
+						hasBuilding = true;
 					}
-					
+				}
+				
+				if (!hasBuilding) {
+					professor.setBuilding("");
 				}
 				
 				professorList.add(professor);

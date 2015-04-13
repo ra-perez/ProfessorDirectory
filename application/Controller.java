@@ -52,7 +52,8 @@ public class Controller {
 	ObservableList<String> observableFilteredNamesList = FXCollections.observableArrayList();
 	ObservableList<String> observableDepartmentList;
 	ObservableList<String> observableBuildingList;
-	private String dep =  "";
+	private String departmentSelected =  "";
+	private String buildingSelected = "";
 	
 	@FXML
 	private void initialize() throws ClassNotFoundException, SQLException {
@@ -66,7 +67,8 @@ public class Controller {
 		department.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue ov, Number value, Number new_val) {
 				try {
-					filteredNamesList = professorDB.getFilteredNamesDept(departmentList.get(new_val.intValue()));
+					departmentSelected = departmentList.get(new_val.intValue());
+					filteredNamesList = professorDB.getFilteredNames(departmentSelected, buildingSelected);
 					populateFilteredNames();
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -81,7 +83,8 @@ public class Controller {
 		building.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue ov, Number value, Number new_val) {
 				try {
-					filteredNamesList = professorDB.getFilteredNamesBuilding(buildingList.get(new_val.intValue()));
+					buildingSelected = buildingList.get(new_val.intValue());
+					filteredNamesList = professorDB.getFilteredNames(departmentSelected, buildingSelected);
 					populateFilteredNames();
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -128,11 +131,11 @@ public class Controller {
 	}
 	
 	public void getDepartment(){
-		dep = department.getSelectionModel().getSelectedItem();
+		departmentSelected = department.getSelectionModel().getSelectedItem();
 	}
 	
 	public String getDep(){
-		return dep;
+		return departmentSelected;
 	}
 	
 	//This method will call switchScreen for the pop up window, please take a look at the professorFile

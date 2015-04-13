@@ -75,6 +75,20 @@ public class Database {
 		
 	public ArrayList<String> getBuildings() throws ClassNotFoundException, SQLException {return getColInfo("Building");}
 	
+	public ArrayList<String> getFilteredNames(String department, String building) throws ClassNotFoundException, SQLException {
+		boolean departmentSelected = !department.equals("") && department != null;
+		boolean buildingSelected = !building.equals("") && building != null;
+		if (departmentSelected && buildingSelected) {
+			String query = "SELECT Name FROM Professors WHERE Department = '" + department +
+					"' AND Building = '" + building + "'";
+			return makeQuery(query);
+		} else if (departmentSelected) {
+			return getFilteredNamesDept(department);
+		} else {
+			return getFilteredNamesBuilding(building);
+		}
+	}
+	
 	public ArrayList<String> getFilteredNamesDept(String department) throws ClassNotFoundException, SQLException {
 		String query;
 		if (!department.equals("") && department != null) {
