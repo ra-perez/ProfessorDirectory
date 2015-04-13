@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 public class Controller {
 	
 	@FXML
-	Button getInfo;
+	Button editInfo;
 	
 	@FXML
 	ChoiceBox <String> department;
@@ -140,7 +140,6 @@ public class Controller {
 	private void Joinpage() throws IOException{
 		getDepartment();
 		switchScreen("professorFile.fxml");
-		//filteredNames.getSelectionModel().
 	}
 	
 	private void switchScreen(String FXMLFile) throws IOException {
@@ -150,7 +149,7 @@ public class Controller {
 		root = FXMLLoader.load(getClass().getResource(FXMLFile));
 		stage.setScene(new Scene(root));
 		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.initOwner(getInfo.getScene().getWindow());
+		stage.initOwner(editInfo.getScene().getWindow());
 		stage.show();
 	}
 	

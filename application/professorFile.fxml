@@ -24,6 +24,8 @@
             <TextField layoutX="456.0" layoutY="96.0" prefHeight="36.0" prefWidth="182.0" />
             <TextField layoutX="456.0" layoutY="181.0" prefHeight="36.0" prefWidth="182.0" />
             <TextField layoutX="456.0" layoutY="289.0" prefHeight="36.0" prefWidth="182.0" />
+            <TextField layoutX="480.0" layoutY="402.0" prefHeight="36.0" prefWidth="182.0" />
+            <Button layoutX="355.0" layoutY="498.0" mnemonicParsing="false" text="Update Information" />
          </children>
       </AnchorPane>
    </center>
