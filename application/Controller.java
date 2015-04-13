@@ -1,14 +1,10 @@
 package application;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import database.Database;
-import database.Parser;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -65,7 +61,7 @@ public class Controller {
 		department.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue ov, Number value, Number new_val) {
 				try {
-					filteredNamesList = professorDB.getFilteredNames(departmentList.get(new_val.intValue()));
+					filteredNamesList = professorDB.getFilteredNamesDept(departmentList.get(new_val.intValue()));
 					populateFilteredNames();
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -76,6 +72,22 @@ public class Controller {
 				}	
 			}
 		});
+		
+		building.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue ov, Number value, Number new_val) {
+				try {
+					filteredNamesList = professorDB.getFilteredNamesDept(buildingList.get(new_val.intValue()));
+					populateFilteredNames();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+			}
+		});
+
 	}
 	
 	private void populateLists() {
@@ -161,15 +173,5 @@ public class Controller {
 				"Location: " + loc1 + " - " + loc2;
 		return info;
 	}
-	
-//	@FXML
-//	public void handleMouseClickDepartment(MouseEvent arg0) throws ClassNotFoundException, SQLException {
-//		System.out.println("In onClick");
-//		filteredNamesList = professorDB.getFilteredNames(department.getSelectionModel().getSelectedItem());	
-//		System.out.println("Deparment: " + department.getSelectionModel().getSelectedItem());
-//		for (String name: filteredNamesList) {
-//			System.out.println(name);
-//		}
-//	}
 
 }

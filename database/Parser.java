@@ -32,13 +32,13 @@ public class Parser {
 		buildings.add("WAC");
 	}
 	
-	public void read() throws FileNotFoundException{
+	public ArrayList<Professor> read() throws FileNotFoundException{
 		File f = new File(fileName);
 		Scanner s = new Scanner(f);
-		parsing(s);
+		return parsing(s);
 	}
 	
-	private void parsing(Scanner s){
+	private ArrayList<Professor> parsing(Scanner s){
 		while (s.hasNextLine()){
 			String loc1;
 			String loc2;
@@ -77,7 +77,7 @@ public class Parser {
 				professorList.add(professor);
 			}
 		}
-		
+		return professorList;
 	}
 	
 	public String getItem(String s, String item) {
