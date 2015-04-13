@@ -14,40 +14,44 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 public class Controller {
-	
-	@FXML
-	Button editInfo;
-	
+
 	@FXML
 	ChoiceBox <String> department;
-	
+
 	@FXML
 	ChoiceBox <String> building;
-	
+
 	@FXML
 	ListView<String> filteredNames;
-	
+
 	@FXML
 	TextArea professorInfo;
-	
+
 	@FXML
-	ChoiceBox<String> name;
+	TextField name;
+
+	@FXML
+	TextField password;
+
+	@FXML
+	Button login;
 
 	@FXML
 	ChoiceBox<String> column;
 
 	@FXML
 	TextArea value;
-	
+
 	@FXML
 	Label error;
 
 	@FXML
 	Button updateInfo;
-	
+
 	Database professorDB;
 	ArrayList<String> departmentList;
 	ArrayList<String> buildingList;
@@ -59,7 +63,9 @@ public class Controller {
 	private String buildingSelected = "";
 	String nameSelected, columnSelected;
 	ArrayList<String> nameList, columnList;
-	
+	boolean loggedIn = false;
+	String loginName = "";
+
 	@FXML
 	private void initialize() throws ClassNotFoundException, SQLException {
 		professorDB = new Database();
@@ -68,7 +74,7 @@ public class Controller {
 		filteredNamesList = professorDB.getName();
 		populateLists();
 		professorInfo.setWrapText(true);
-		
+
 		department.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue ov, Number value, Number new_val) {
 				try {
@@ -84,7 +90,7 @@ public class Controller {
 				}	
 			}
 		});
-		
+
 		building.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue ov, Number value, Number new_val) {
 				try {
@@ -100,30 +106,15 @@ public class Controller {
 				}	
 			}
 		});
-		
-		nameList = professorDB.getName();
-		populateNameList();
-		populateColumnList();
-		name.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-			public void changed(ObservableValue ov, Number value, Number new_val) {
-				nameSelected = nameList.get(new_val.intValue());	
-			}
-		});
 
+		nameList = professorDB.getName();
+		populateColumnList();
 		column.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue ov, Number value, Number new_val) {
 				columnSelected = columnList.get(new_val.intValue());	
 			}
 		});
 
-	}
-	
-	private void populateNameList() {
-		ObservableList<String> observableNameList = FXCollections.observableArrayList();
-		for (String name: nameList) {
-			observableNameList.add(name);
-		}
-		name.setItems(observableNameList);
 	}
 
 	private void populateColumnList() {
@@ -136,6 +127,7 @@ public class Controller {
 		columnList.add("Loc1");
 		columnList.add("Loc2");
 		columnList.add("AdditionalInfo");
+		columnList.add("Password");
 
 		ObservableList<String> observableColumnList = FXCollections.observableArrayList();
 		for (String name: columnList) {
@@ -144,28 +136,13 @@ public class Controller {
 		column.setItems(observableColumnList);
 	}
 
-	@FXML
-	public void saveEdit() throws ClassNotFoundException, SQLException {
-		String professorName = nameSelected;
-		String columnValue = columnSelected;
-		String valueToUpdate = value.getText();
-		if (!nameSelected.equals("") && !columnValue.equals("") && !valueToUpdate.equals("")) {
-			professorDB.updateColumn(professorName, columnValue, valueToUpdate);
-			value.setText("");
-			error.setText("Update Complete");
-		} else {
-			error.setText("Must have information in every field");
-		}
-	}
-
-	
 	private void populateLists() {
 		populateBuilding();
 		populateDepartment();
 		populateFilteredNames();
 	}
-		
-	
+
+
 	private void populateFilteredNames() {
 		observableFilteredNamesList.clear();
 		for (String name: filteredNamesList) {
@@ -173,7 +150,7 @@ public class Controller {
 		}
 		filteredNames.setItems(observableFilteredNamesList);
 	}
-	
+
 	private void populateBuilding() {
 		ObservableList<String> observableBuildingList = FXCollections.observableArrayList();
 		for (String name: buildingList) {
@@ -181,23 +158,23 @@ public class Controller {
 		}
 		building.setItems(observableBuildingList);
 	}
-	
+
 	private void populateDepartment() {
 		ObservableList<String> observableDepartmentList = FXCollections.observableArrayList();
 		for (String name: departmentList) {
 			observableDepartmentList.add(name);
-			
+
 		}
 		department.setItems(observableDepartmentList);
-		
+
 	}
-	
+
 	@FXML
 	public void handleMouseClick(MouseEvent arg0) throws ClassNotFoundException, SQLException {
 		String info = writeText();
 		professorInfo.setText(info);
 	}
-	
+
 	public String writeText() throws ClassNotFoundException, SQLException {
 		String name = filteredNames.getSelectionModel().getSelectedItem();
 		String department = professorDB.getInfoGivenName(name, "Department").get(0);
@@ -207,7 +184,7 @@ public class Controller {
 		String loc1 = professorDB.getInfoGivenName(name, "Loc1").get(0);
 		String loc2 = professorDB.getInfoGivenName(name, "Loc2").get(0);
 		String additionalInfo = professorDB.getInfoGivenName(name, "AdditionalInfo").get(0);
-		
+
 		String info = "Name: " + name + "\n" +
 				"Department: " + department + "\n" +
 				"Title: " + title + "\n" +
@@ -219,6 +196,48 @@ public class Controller {
 		}
 		info += "\n" + additionalInfo;
 		return info;
+	}
+
+	@FXML
+	public void loginAttempt() throws SQLException {
+		if(!loggedIn) {
+			loginName = name.getText();
+			String loginPassword = password.getText();
+			if (nameList.contains(loginName) && professorDB.checkPassword(loginName, loginPassword)) {
+				loggedIn = true;
+				error.setText("Logged in as " + loginName);
+				login.setText("Logout");
+			} else {
+				error.setText("Login failed");
+			}
+		} else {
+			loggedIn = false;
+			error.setText("Logged Out");
+			login.setText("Login");
+		}
+	}
+
+	@FXML
+	public void saveEdit() throws ClassNotFoundException, SQLException {
+		String columnValue = columnSelected;
+		String valueToUpdate = value.getText();
+		if (!loggedIn) {
+			error.setText("Must log in first");
+			return;
+		}
+		if (!loginName.equals("") && !columnValue.equals("") && !valueToUpdate.equals("")) {
+			if (columnValue.equals("Password")) {
+				professorDB.changePassword(loginName, valueToUpdate);
+				value.setText("");
+				error.setText("Password Changed");
+			} else {
+				professorDB.updateColumn(loginName, columnValue, valueToUpdate);
+				value.setText("");
+				error.setText("Update Complete");
+			}
+		} else {
+			error.setText("Must have information in every field");
+		}
 	}
 
 }

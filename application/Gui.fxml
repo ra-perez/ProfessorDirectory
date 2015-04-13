@@ -45,14 +45,17 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="125.0" layoutY="57.0" text="Name:" />
+                        <Label layoutX="14.0" layoutY="28.0" text="Name:" />
                         <Label layoutX="113.0" layoutY="127.0" text="Column:" />
                         <Label layoutX="14.0" layoutY="194.0" text="Additional Information:" />
-                        <ChoiceBox fx:id="name" layoutX="180.0" layoutY="52.0" prefHeight="31.0" prefWidth="212.0" />
                         <ChoiceBox fx:id="column" layoutX="180.0" layoutY="122.0" prefHeight="31.0" prefWidth="212.0" />
                         <TextArea fx:id="value" layoutX="172.0" layoutY="194.0" prefHeight="263.0" prefWidth="333.0" />
                         <Button fx:id="updateInfo" layoutX="449.0" layoutY="468.0" mnemonicParsing="false" onAction="#saveEdit" text="Save Edit" />
                         <Label fx:id="error" layoutX="14.0" layoutY="473.0" />
+                        <Label layoutX="220.0" layoutY="28.0" text="Password:" />
+                        <TextField fx:id="name" layoutX="57.0" layoutY="23.0" prefHeight="31.0" prefWidth="155.0" promptText="Enter Name" />
+                        <TextField fx:id="password" layoutX="286.0" layoutY="23.0" prefHeight="31.0" prefWidth="172.0" promptText="Enter Password" />
+                        <Button fx:id="login" layoutX="464.0" layoutY="23.0" mnemonicParsing="false" onAction="#loginAttempt" text="Login" />
                      </children>
                   </AnchorPane>
             </content>

@@ -12,19 +12,23 @@ public class Database {
         Class.forName("org.sqlite.JDBC");
         Connection con = DriverManager.getConnection("jdbc:sqlite:professors.db");
         stat = con.createStatement();
-		
-        //stat.executeUpdate("DROP TABLE IF EXISTS Professors");
-        
+		        
         DatabaseMetaData meta = con.getMetaData();
         ResultSet res = meta.getTables(null, null, "Professors", 
            new String[] {"TABLE"});
         if (!res.next()) {
-        	initializeDatabase();
+        	initializeProfessorDatabase();
+        }
+        
+        res = meta.getTables(null, null, "Login", 
+           new String[] {"TABLE"});
+        if (!res.next()) {
+        	initializeLoginDatabase();
         }
                 
 	}
 	
-	private void initializeDatabase() throws ClassNotFoundException {
+	private void initializeProfessorDatabase() throws ClassNotFoundException {
 		Parser p = new Parser();
 		ArrayList<Professor> professors = new ArrayList<Professor>();
 		try {
@@ -36,14 +40,24 @@ public class Database {
 
         try {
         	stat.executeUpdate("CREATE TABLE IF NOT EXISTS Professors (Name TEXT, Title TEXT, Department TEXT, Building TEXT, Phone TEXT, Email TEXT, Loc1 TEXT, Loc2 TEXT, AdditionalInfo TEXT)");
-        	populateDatabase(professors);
+        	populateProfessorDatabase(professors);
         } catch (SQLException exception) {
         	exception.printStackTrace();
         	return;
         }
 	}
 	
-	public void populateDatabase(ArrayList<Professor> professors) throws ClassNotFoundException, SQLException {
+	private void initializeLoginDatabase() throws ClassNotFoundException {
+        try {
+        	stat.executeUpdate("CREATE TABLE IF NOT EXISTS Login (Name TEXT, Password TEXT)");
+        	populateLoginDatabase();
+        } catch (SQLException exception) {
+        	exception.printStackTrace();
+        	return;
+        }
+	}
+	
+	public void populateProfessorDatabase(ArrayList<Professor> professors) throws ClassNotFoundException, SQLException {
         for (Professor p: professors) {
 	        stat.executeUpdate("INSERT INTO Professors VALUES ('" +
 	        	p.getName() + "', '" +
@@ -56,6 +70,13 @@ public class Database {
 	       		p.getLoc2() + "', '" +
 	       		p.getAdditionalInfo() + "')"
 	        );
+		}
+	}
+	
+	public void populateLoginDatabase() throws ClassNotFoundException, SQLException {
+		ArrayList<String> names = getName();
+		for (String name: names) {
+			stat.executeUpdate("INSERT INTO Login VALUES ('" + name + "', 'admin')");
 		}
 	}
 	
@@ -125,4 +146,18 @@ public class Database {
 		stat.executeUpdate(updateCommand);
 	}
 	
+	public void changePassword(String name, String password) throws SQLException {
+		String updateCommand = "UPDATE Login SET Password = '" + password + "' WHERE Name = '" + name + "'";
+		stat.executeUpdate(updateCommand);
+	}
+	
+	public boolean checkPassword(String name, String password) throws SQLException {
+		String query = "SELECT * FROM Login WHERE Name = '" + name + "' AND Password = '" + password + "'";
+		ResultSet rs = stat.executeQuery(query);
+		if (rs.next()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
