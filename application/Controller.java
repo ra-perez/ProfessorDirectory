@@ -170,7 +170,10 @@ public class Controller {
 				"Title: " + title + "\n" +
 				"Email: " + email + "\n" +
 				"Phone: " + phone + "\n" +
-				"Location: " + loc1 + " - " + loc2;
+				"Location: " + loc1;
+		if (!loc2.equals("") && loc2 != null) {
+			info += " - " + loc2;
+		}
 		return info;
 	}
 

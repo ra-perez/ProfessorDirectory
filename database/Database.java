@@ -104,8 +104,9 @@ public class Database {
 		return makeQuery(query);
 	}
 	
-	public void updateColumn(String name, String column) {
-		String query = "";
+	public void updateColumn(String name, String column, String update) throws ClassNotFoundException, SQLException {
+		String query = "UPDATE Professors SET " + column + " = " + update + " WHERE Name = '" + name + "'";
+		makeQuery(query);
 	}
 	
 }
