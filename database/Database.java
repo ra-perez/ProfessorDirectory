@@ -12,32 +12,34 @@ public class Database {
         Connection con = DriverManager.getConnection("jdbc:sqlite:professors.db");
         stat = con.createStatement();
 		
+        //stat.executeUpdate("DROP TABLE IF EXISTS Professors");
+        
         DatabaseMetaData meta = con.getMetaData();
-        ResultSet res = meta.getTables(null, null, "My_Table_Name", 
+        ResultSet res = meta.getTables(null, null, "Professors", 
            new String[] {"TABLE"});
         if (!res.next()) {
         	initializeDatabase();
         }
+                
 	}
 	
 	private void initializeDatabase() throws ClassNotFoundException {
 		Parser p = new Parser();
 		ArrayList<Professor> professors = new ArrayList<Professor>();
 		try {
-			p.read();
+			professors = p.read();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-        try {        	
+        try {
         	stat.executeUpdate("CREATE TABLE IF NOT EXISTS Professors (Name TEXT, Title TEXT, Department TEXT, Building TEXT, Phone TEXT, Email TEXT, Loc1 TEXT, Loc2 TEXT)");
         	populateDatabase(professors);
         } catch (SQLException exception) {
         	exception.printStackTrace();
         	return;
         }
-
 	}
 	
 	public void populateDatabase(ArrayList<Professor> professors) throws ClassNotFoundException, SQLException {
@@ -72,7 +74,7 @@ public class Database {
 		
 	public ArrayList<String> getBuildings() throws ClassNotFoundException, SQLException {return getColInfo("Building");}
 	
-	public ArrayList<String> getFilteredNames(String department) throws ClassNotFoundException, SQLException {
+	public ArrayList<String> getFilteredNamesDept(String department) throws ClassNotFoundException, SQLException {
 		String query;
 		if (!department.equals("") && department != null) {
 			query = "SELECT Name FROM Professors WHERE Department = '" + department + "'";
@@ -81,6 +83,17 @@ public class Database {
 		}
 		return makeQuery(query);
 	}
+	
+	public ArrayList<String> getFilteredNamesBuilding(String building) throws ClassNotFoundException, SQLException {
+		String query;
+		if (!building.equals("") && building != null) {
+			query = "SELECT Name FROM Professors WHERE Building = '" + building + "'";
+		} else {
+			query = "SELECT Name FROM Professors";
+		}
+		return makeQuery(query);
+	}
+	
 	public ArrayList<String> getName() throws ClassNotFoundException, SQLException {
 		String query = "SELECT Name FROM Professors GROUP BY Name";
 		return makeQuery(query);
@@ -89,6 +102,10 @@ public class Database {
 	public ArrayList<String> getInfoGivenName(String name, String column) throws ClassNotFoundException, SQLException {
 		String query = "SELECT " + column + " FROM Professors WHERE Name = '" + name + "'";
 		return makeQuery(query);
+	}
+	
+	public void updateColumn(String name, String column) {
+		String query = "";
 	}
 	
 }
