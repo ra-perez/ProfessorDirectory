@@ -15,18 +15,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-//List of fields that can be updated by professor
-//Title, Department, Building, Phone, Email, Location1, Location2, Additional Info
-
-//Pop-Up Menu needs to have Professor enter their Name
-	//Select column they want to change in drop down box
-	//Write info they want to change column to
 
 public class Controller {
 	
@@ -45,6 +39,21 @@ public class Controller {
 	@FXML
 	TextArea professorInfo;
 	
+	@FXML
+	ChoiceBox<String> name;
+
+	@FXML
+	ChoiceBox<String> column;
+
+	@FXML
+	TextArea value;
+	
+	@FXML
+	Label error;
+
+	@FXML
+	Button updateInfo;
+	
 	Database professorDB;
 	ArrayList<String> departmentList;
 	ArrayList<String> buildingList;
@@ -54,6 +63,8 @@ public class Controller {
 	ObservableList<String> observableBuildingList;
 	private String departmentSelected =  "";
 	private String buildingSelected = "";
+	String nameSelected, columnSelected;
+	ArrayList<String> nameList, columnList;
 	
 	@FXML
 	private void initialize() throws ClassNotFoundException, SQLException {
@@ -95,7 +106,64 @@ public class Controller {
 				}	
 			}
 		});
+		
+		nameList = professorDB.getName();
+		populateNameList();
+		populateColumnList();
+		name.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue ov, Number value, Number new_val) {
+				nameSelected = nameList.get(new_val.intValue());	
+			}
+		});
+
+		column.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue ov, Number value, Number new_val) {
+				columnSelected = columnList.get(new_val.intValue());	
+			}
+		});
+
 	}
+	
+	private void populateNameList() {
+		ObservableList<String> observableNameList = FXCollections.observableArrayList();
+		for (String name: nameList) {
+			observableNameList.add(name);
+		}
+		name.setItems(observableNameList);
+	}
+
+	private void populateColumnList() {
+		columnList = new ArrayList<String>();
+		columnList.add("Title");
+		columnList.add("Department");
+		columnList.add("Building");
+		columnList.add("Phone");
+		columnList.add("Email");
+		columnList.add("Loc1");
+		columnList.add("Loc2");
+		columnList.add("AdditionalInfo");
+
+		ObservableList<String> observableColumnList = FXCollections.observableArrayList();
+		for (String name: columnList) {
+			observableColumnList.add(name);
+		}
+		column.setItems(observableColumnList);
+	}
+
+	@FXML
+	public void saveEdit() throws ClassNotFoundException, SQLException {
+		String professorName = nameSelected;
+		String columnValue = columnSelected;
+		String valueToUpdate = value.getText();
+		if (!nameSelected.equals("") && !columnValue.equals("") && !valueToUpdate.equals("")) {
+			professorDB.updateColumn(professorName, columnValue, valueToUpdate);
+			value.setText("");
+			error.setText("Update Complete");
+		} else {
+			error.setText("Must have information in every field");
+		}
+	}
+
 	
 	private void populateLists() {
 		populateBuilding();
@@ -128,32 +196,6 @@ public class Controller {
 		}
 		department.setItems(observableDepartmentList);
 		
-	}
-	
-	public void getDepartment(){
-		departmentSelected = department.getSelectionModel().getSelectedItem();
-	}
-	
-	public String getDep(){
-		return departmentSelected;
-	}
-	
-	//This method will call switchScreen for the pop up window, please take a look at the professorFile
-	@FXML
-	private void Joinpage() throws IOException{
-		getDepartment();
-		switchScreen("professorFile.fxml");
-	}
-	
-	private void switchScreen(String FXMLFile) throws IOException {
-		Stage stage;
-		Parent root;
-		stage = new Stage();
-		root = FXMLLoader.load(getClass().getResource(FXMLFile));
-		stage.setScene(new Scene(root));
-		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.initOwner(editInfo.getScene().getWindow());
-		stage.show();
 	}
 	
 	@FXML
