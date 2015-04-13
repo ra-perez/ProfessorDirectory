@@ -1,38 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="564.0" prefWidth="531.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+<BorderPane prefHeight="575.0" prefWidth="545.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <center>
-      <SplitPane dividerPositions="0.29797979797979796" prefHeight="518.0" prefWidth="511.0" BorderPane.alignment="CENTER">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <ListView fx:id="filteredNames" layoutX="-2.0" layoutY="-2.0" onMouseClicked="#handleMouseClick" prefHeight="534.0" prefWidth="157.0" />
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="479.0" prefWidth="324.0">
-               <children>
-                  <Button fx:id="editInfo" layoutX="6.0" layoutY="495.0" mnemonicParsing="false" onAction="#Joinpage" text="Edit" />
-                  <VBox layoutX="6.0" prefHeight="495.0" prefWidth="359.0">
+      <Accordion BorderPane.alignment="CENTER">
+        <panes>
+          <TitledPane animated="false" text="Professor Directory">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <top>
+                        <AnchorPane prefHeight="41.0" prefWidth="519.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <ChoiceBox fx:id="department" layoutX="102.0" layoutY="5.0" prefWidth="150.0" />
+                              <ChoiceBox fx:id="building" layoutX="362.0" layoutY="5.0" prefWidth="150.0" />
+                              <Label layoutX="14.0" layoutY="10.0" text="Department" />
+                              <Label layoutX="301.0" layoutY="10.0" text="Building" />
+                           </children>
+                        </AnchorPane>
+                     </top>
+                     <center>
+                        <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <ListView fx:id="filteredNames" onMouseClicked="#handleMouseClick" prefHeight="445.0" prefWidth="154.0" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <TextArea fx:id="professorInfo" prefHeight="445.0" prefWidth="361.0" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </center>
+                  </BorderPane>
+               </content>
+          </TitledPane>
+          <TitledPane animated="false" text="Professor Update">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea fx:id="professorInfo" prefHeight="503.0" prefWidth="359.0" />
+                        <Label layoutX="125.0" layoutY="57.0" text="Name:" />
+                        <Label layoutX="113.0" layoutY="127.0" text="Column:" />
+                        <Label layoutX="14.0" layoutY="194.0" text="Additional Information:" />
+                        <ChoiceBox fx:id="name" layoutX="180.0" layoutY="52.0" prefHeight="31.0" prefWidth="212.0" />
+                        <ChoiceBox fx:id="column" layoutX="180.0" layoutY="122.0" prefHeight="31.0" prefWidth="212.0" />
+                        <TextArea fx:id="value" layoutX="172.0" layoutY="194.0" prefHeight="263.0" prefWidth="333.0" />
+                        <Button fx:id="updateInfo" layoutX="449.0" layoutY="468.0" mnemonicParsing="false" onAction="#saveEdit" text="Save Edit" />
+                        <Label fx:id="error" layoutX="14.0" layoutY="473.0" />
                      </children>
-                  </VBox>
-               </children></AnchorPane>
-        </items>
-      </SplitPane>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+        </panes>
+      </Accordion>
    </center>
-   <top>
-      <AnchorPane prefHeight="32.0" prefWidth="418.0" BorderPane.alignment="CENTER">
-         <children>
-            <ChoiceBox fx:id="department" layoutX="97.0" layoutY="7.0" prefWidth="150.0" />
-            <Label layoutX="6.0" layoutY="10.0" text="Department" />
-            <ChoiceBox fx:id="building" layoutX="375.0" layoutY="5.0" prefWidth="150.0" />
-            <Label layoutX="298.0" layoutY="9.0" prefHeight="21.0" prefWidth="63.0" text="Building" />
-         </children></AnchorPane>
-   </top>
 </BorderPane>
