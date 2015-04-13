@@ -1,23 +1,25 @@
 package application;
 
-import database.Database;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
+
 
 public class professorFile {
 	
 	@FXML
-	TextField departmentName;
+	ChoiceBox name;
 	
 	@FXML
+	ChoiceBox column;
+	
+	@FXML
+	TextArea value;
+
+	@FXML
 	Button updateInfo;
-	
-	
-	
-	
-	Controller control = new Controller();
-	Database data;
 	
 	@FXML
 	public void initialize() {
