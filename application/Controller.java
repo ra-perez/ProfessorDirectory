@@ -21,7 +21,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+//List of fields that can be updated by professor
+//Title, Department, Building, Phone, Email, Location1, Location2, Additional Info
 
+//Pop-Up Menu needs to have Professor enter their Name
+	//Select column they want to change in drop down box
+	//Write info they want to change column to
 
 public class Controller {
 	
